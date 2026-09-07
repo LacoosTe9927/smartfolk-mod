@@ -2,7 +2,7 @@ package fr.smartfolk;
 
 import fr.smartfolk.entity.SmartFolkEntity;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.objet.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
