@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "smartfolk",
+  "version": "${version}",
+  "name": "Smart Folk",
+  "description": "Ajoute de petits personnages intelligents et independants : ils explorent, construisent, evoluent, se lient d'amitie ou s'affrontent selon leurs relations.",
+  "authors": ["Toi"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["fr.smartfolk.SmartFolkMod"],
+    "client": ["fr.smartfolk.client.SmartFolkModClient"]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.14.24",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
