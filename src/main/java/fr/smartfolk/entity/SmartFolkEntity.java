@@ -3,7 +3,7 @@ package fr.smartfolk.entity;
 import fr.smartfolk.entity.ai.BuildGoal;
 import fr.smartfolk.entity.ai.RivalryGoal;
 import fr.smartfolk.entity.ai.SocializeGoal;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
