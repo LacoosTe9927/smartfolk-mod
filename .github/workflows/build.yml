@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: gradle:8.8-jdk17
+    container: gradle:8.10-jdk17
     steps:
       - uses: actions/checkout@v4
       - run: gradle build --no-daemon
@@ -11,4 +11,4 @@ jobs:
         with:
           name: smartfolk-mod
           path: build/libs/*.jar
-Update Gradle to 8.8
+Update Gradle to 8.10
