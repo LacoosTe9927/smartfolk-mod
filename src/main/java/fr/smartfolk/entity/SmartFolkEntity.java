@@ -84,7 +84,7 @@ public class SmartFolkEntity extends PathAwareEntity {
 
     @Override
     public LivingEntity initialize(ServerWorldAccess world, LocalDifficulty difficulty,
-                                    SpawnReason spawnReason, EntityData) {
+                                    SpawnReason spawnReason, EntityData entitydata) {
         // Attribution d'une couleur aleatoire a la naissance / au spawn.
         setColorVariant(ColorVariant.random(this.random));
         applyColorGear();
