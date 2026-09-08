@@ -10,6 +10,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -103,13 +105,28 @@ public class SmartFolkEntity extends PathAwareEntity {
         this.dataTracker.set(COLOR_ID, variant.ordinal());
     }
 
-    /** Teinte un plastron en cuir pour rendre la couleur visible en jeu. */
+    /** Teinte un jeu d'armure en cuir complet pour rendre la couleur bien visible en jeu. */
     private void applyColorGear() {
+        int rgb = getColorVariant().getDyeRgb();
+
+        ItemStack helmet = new ItemStack(Items.LEATHER_HELMET);
         ItemStack chest = new ItemStack(Items.LEATHER_CHESTPLATE);
-        NbtCompound display = chest.getOrCreateSubNbt("display");
-        display.putInt("color", getColorVariant().getDyeRgb());
+        ItemStack legs = new ItemStack(Items.LEATHER_LEGGINGS);
+        ItemStack boots = new ItemStack(Items.LEATHER_BOOTS);
+
+        for (ItemStack piece : new ItemStack[]{helmet, chest, legs, boots}) {
+            NbtCompound display = piece.getOrCreateSubNbt("display");
+            display.putInt("color", rgb);
+        }
+
+        this.equipStack(EquipmentSlot.HEAD, helmet);
         this.equipStack(EquipmentSlot.CHEST, chest);
-        this.setEquipmentDropChance(EquipmentSlot.CHEST, 0.0F);
+        this.equipStack(EquipmentSlot.LEGS, legs);
+        this.equipStack(EquipmentSlot.FEET, boots);
+
+        for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
+            this.setEquipmentDropChance(slot, 0.0F);
+        }
     }
 
     // ------------------------------------------------------------------
@@ -199,11 +216,18 @@ public class SmartFolkEntity extends PathAwareEntity {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new RivalryGoal(this));
+        // Riposte generale : si un joueur ou un monstre les attaque, ils
+        // se defendent (le RivalryGoal ci-dessus ne gere que les
+        // affrontements entre Smart Folk rivaux).
+        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.add(2, new SocializeGoal(this));
         this.goalSelector.add(3, new BuildGoal(this));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
+
+        // Determine qui attaquer en retour : quiconque les blesse.
+        this.targetSelector.add(1, new RevengeGoal(this));
     }
 
     // ------------------------------------------------------------------

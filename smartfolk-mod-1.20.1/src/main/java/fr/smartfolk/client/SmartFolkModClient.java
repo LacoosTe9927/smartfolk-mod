@@ -6,31 +6,30 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.VillagerResemblingModel;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.util.Identifier;
 
 /**
- * Cote rendu, un Smart Folk reutilise le modele "robe" du villageois
- * vanilla (silhouette humanoide simple, deja disponible dans le jeu),
- * mis a l'echelle pour rester petit. Sa couleur vient du plastron en
- * cuir teinte applique dans SmartFolkEntity#applyColorGear, qui se
- * dessine par-dessus grace au rendu d'equipement standard.
+ * Rendu du Smart Folk : un modele humanoide generique (le meme squelette
+ * que le joueur, PAS celui du villageois) associe a une texture propre
+ * au mod (visage simple, teinte de peau neutre). La couleur du
+ * personnage vient ensuite d'un jeu complet d'armure en cuir teintee,
+ * appliquee dans SmartFolkEntity#applyColorGear, qui recouvre la
+ * majeure partie du corps.
  *
- * Si tu veux plus tard un modele 100% custom (silhouette differente
- * d'un villageois), le plus simple est de le creer avec Blockbench,
- * de l'exporter en "Bedrock" ou "Java Entity" et de suivre un tutoriel
- * Fabric "custom entity model" pour 1.20.1 : la structure ci-dessous
- * (renderer + texture) reste la meme, seul le modele change.
+ * Si tu veux un jour une silhouette 100% originale (pas juste un
+ * joueur repeint), l'etape suivante est de modeliser une forme custom
+ * dans Blockbench et de l'exporter en "Java Entity Model" pour Fabric.
  */
 public class SmartFolkModClient implements ClientModInitializer {
 
     private static final Identifier TEXTURE =
-            new Identifier("minecraft", "textures/entity/villager/villager.png");
+            new Identifier(SmartFolkMod.MOD_ID, "textures/entity/smart_folk.png");
 
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(SmartFolkMod.SMART_FOLK, context ->
-                new MobEntityRenderer<>(context, new VillagerResemblingModel<>(context.getPart(EntityModelLayers.VILLAGER)), 0.3F) {
+                new MobEntityRenderer<>(context, new PlayerEntityModel<>(context.getPart(EntityModelLayers.PLAYER), false), 0.3F) {
                     @Override
                     public Identifier getTexture(SmartFolkEntity entity) {
                         return TEXTURE;

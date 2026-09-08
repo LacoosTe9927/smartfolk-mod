@@ -50,8 +50,8 @@ public class SmartFolkMod implements ModInitializer {
                 new SpawnEggItem(SMART_FOLK, 0x5E7C16, 0xFED83D, new Item.Settings())
         );
 
-        // Ajoute l'oeuf dans l'onglet creatif "Outils et utilitaires".
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> entries.add(SMART_FOLK_SPAWN_EGG));
+        // Ajoute l'oeuf dans l'onglet creatif "Oeufs d'apparition".
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> entries.add(SMART_FOLK_SPAWN_EGG));
 
         // Remarque : l'apparition naturelle dans le monde n'est pas
         // configuree ici pour rester simple et fiable. Utilise l'oeuf
