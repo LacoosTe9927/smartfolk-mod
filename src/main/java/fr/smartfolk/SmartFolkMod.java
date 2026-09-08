@@ -4,7 +4,6 @@ import fr.smartfolk.entity.SmartFolkEntity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
@@ -34,7 +33,7 @@ public class SmartFolkMod implements ModInitializer {
                 Registries.ENTITY_TYPE,
                 id("smart_folk"),
                 EntityType.Builder.<SmartFolkEntity>create(SmartFolkEntity::new, SpawnGroup.CREATURE)
-                        .dimensions(EntityDimensions.fixed(0.4F, 0.9F))
+                        .setDimensions(0.4F, 0.9F)
                         .trackRangeBlocks(10)
                         .build("smart_folk")
         );
