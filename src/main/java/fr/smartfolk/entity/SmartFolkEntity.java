@@ -3,6 +3,7 @@ package fr.smartfolk.entity;
 import fr.smartfolk.entity.ai.BuildGoal;
 import fr.smartfolk.entity.ai.RivalryGoal;
 import fr.smartfolk.entity.ai.SocializeGoal;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -83,12 +84,12 @@ public class SmartFolkEntity extends PathAwareEntity {
     }
 
     @Override
-    public LivingEntity.SpawnGroupData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
-                                    SpawnReason spawnReason, LivingEntity.SpawnGroupData entityData) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty,
+                                    SpawnReason spawnReason, EntityData entityData, NbtCompound entityNbt) {
         // Attribution d'une couleur aleatoire a la naissance / au spawn.
         setColorVariant(ColorVariant.random(this.random));
         applyColorGear();
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     // ------------------------------------------------------------------
