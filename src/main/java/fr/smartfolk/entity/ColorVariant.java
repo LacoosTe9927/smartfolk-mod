@@ -1,6 +1,6 @@
 package fr.smartfolk.entity;
 
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 /**
  * Les differentes couleurs possibles pour un Smart Folk.
