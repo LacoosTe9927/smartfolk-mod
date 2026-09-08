@@ -34,7 +34,7 @@ public class SmartFolkMod implements ModInitializer {
                 id("smart_folk"),
                 EntityType.Builder.<SmartFolkEntity>create(SmartFolkEntity::new, SpawnGroup.CREATURE)
                         .setDimensions(0.4F, 0.9F)
-                        .trackRangeBlocks(10)
+                        .maxTrackingRange(10)
                         .build("smart_folk")
         );
 
